@@ -1,10 +1,10 @@
 import type { Request, Response } from "express";
-
 import User from "../models/UserModel";
 import { encryptPassword } from "../utils/auth";
 import Token from "../models/Token";
 import { generateToken } from "../utils/generateToken";
 import { AuthEmail } from "../emails/AuthEmails";
+import { IEmail } from "../emails/AuthEmails";
 
 export class AuthController {
 	// Implement methods for authentication and authorization
@@ -28,11 +28,16 @@ export class AuthController {
 			const token = new Token();
 			token.token = generateToken();
 			token.userId = user.id;
-			await AuthEmail.sendConfirmationEmail(
-				user.email,
-				token.token,
-				user.username
-			);
+
+			const emailData: IEmail = {
+				email: user.email,
+				username: user.username,
+				token: token.token,
+			};
+
+			// Enviar correo de confirmación al usuario para confirmar la cuenta
+			await AuthEmail.sendConfirmationEmail(emailData);
+
 			/* await user.save();
 			await token.save(); => de esta se puede hacer pero su performance
 			no seria bueno*/

@@ -6,7 +6,7 @@ import { handleInputErrors } from "../middleware/validation";
 
 const router = Router();
 
-// POST /api/auth
+// POST Ruta de registro de usuarios
 router.post(
 	"/create-account",
 	[
