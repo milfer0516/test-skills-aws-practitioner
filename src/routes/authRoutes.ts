@@ -28,5 +28,26 @@ router.post(
 	AuthController.createAccount
 );
 
+// POST Ruta para confirmar cuenta
+router.post('/confirm-account', 
+	[
+        body('token')
+			.notEmpty().withMessage('Token de confirmación no puede estar vacío'),
+	],
+    handleInputErrors,
+	AuthController.confirmAccount
+)
+
+// POST Ruta para loguear o Iniciode Sesion
+router.post(
+	"/login",
+	[
+		body("email").isEmail().withMessage("E-mail o Correo no válido"),
+		body("password")
+			.notEmpty().withMessage("Password no puede ir vacio"),
+	],
+	handleInputErrors,
+	AuthController.login
+);
 // Exportar
 export default router;
