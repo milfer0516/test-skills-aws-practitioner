@@ -22,7 +22,8 @@ export class AuthEmail {
 						<h3>Hola! ${user.username}, te has registrado para poner en práctica tus habilidades para el examen Cloud Practitioner</h3>
 						<p>Gracias por registrarte en Skills-Practitioner, ya casí todo esta listo, 
 						solo debes confirmar tu cuenta</p>
-						<p>Visita el siguiente enlace: <a href="/">Confirmar cuenta</a>
+						<p>Visita el siguiente enlace: 
+						<a href="${process.env.URL_FRONTEND}/auth/confirm-account">Confirmar cuenta</a>
 						Ingresa este código <b>${user.token}</b> </p>
 						<p>Este token expíra en 10 minutos</p>
 						<p>Si no has solicitado esta cuenta, no es necesario responder a este mensaje.</p>

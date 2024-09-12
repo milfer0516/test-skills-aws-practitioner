@@ -43,9 +43,9 @@ export class AuthController {
 			await token.save(); => de esta se puede hacer pero su performance
 			no seria bueno*/
 			await Promise.allSettled([await user.save(), await token.save()]);
-			res.status(201).json({
-				message: "Cuenta creada con éxito! Revisa tu email para confirmarla",
-			});
+			res
+				.status(201)
+				.send("Cuenta creada con éxito! Revisa tu email para confirmarla");
 		} catch (error) {
 			console.error(error);
 			res.status(500).json({ message: "Error al crear la cuenta" });
@@ -71,7 +71,9 @@ export class AuthController {
 			user.confirmed = true;
 
 			await Promise.allSettled([user.save(), tokenExists.deleteOne()]);
-			res.send("Cuenta confirmada correctamente!!");
+			res.status(201).json({
+				message: "Cuenta confirmada correctamente!!" 
+			});
 			/* if (!user) {
 				const error = new Error("Token no válido");
 				return res.status(401).json({ error: error.message });
