@@ -1,17 +1,16 @@
 import { createBrevoClient } from "../config/brevoClient";
-
-// Crear Interface 
+import dotenv from "dotenv";
+dotenv.config();
+// Crear Interface
 
 export interface IEmail {
-    email: string;
-    username: string;
-	token: string
+	email: string;
+	username: string;
+	token: string;
 }
 
 export class AuthEmail {
-	static async sendConfirmationEmail(
-		user: IEmail
-	): Promise<void> {
+	static async sendConfirmationEmail(user: IEmail): Promise<void> {
 		const emailData = {
 			sender: { email: "milfer16@gmail.com" },
 			subject: "Skills-Practitioner - Confirma tu cuenta",
@@ -23,7 +22,7 @@ export class AuthEmail {
 						<p>Gracias por registrarte en Skills-Practitioner, ya casí todo esta listo, 
 						solo debes confirmar tu cuenta</p>
 						<p>Visita el siguiente enlace: 
-						<a href="${process.env.URL_FRONTEND}/auth/confirm-account">Confirmar cuenta</a>
+						<a href="${process.env.URL_FRONTEND_PRODUCCION}/auth/confirm-account">Confirmar cuenta</a>
 						Ingresa este código <b>${user.token}</b> </p>
 						<p>Este token expíra en 10 minutos</p>
 						<p>Si no has solicitado esta cuenta, no es necesario responder a este mensaje.</p>
@@ -38,6 +37,7 @@ export class AuthEmail {
 				"Email de confirmación enviado exitosamente:",
 				response.body.messageIds
 			); */
+			return;
 		} catch (error) {
 			if (error.response) {
 				// Error de respuesta HTTP
